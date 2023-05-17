@@ -7,4 +7,5 @@ namespace ariel{
     int Team::stillAlive(){return 0;}
     void Team::print(){} 
 
+
 }

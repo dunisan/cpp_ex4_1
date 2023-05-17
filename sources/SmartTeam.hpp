@@ -7,7 +7,7 @@ namespace ariel{
     class SmartTeam: public Team{
         public:
             SmartTeam(Character* leader):Team(leader) {}
-            virtual void attack(Team*) override;
-            virtual void print() override; 
+            void attack(Team* enemy) override;
+            void print() override; 
     };
 }

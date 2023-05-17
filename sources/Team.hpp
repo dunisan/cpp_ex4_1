@@ -20,12 +20,34 @@ namespace ariel{
 
         public: 
 
-            Team(Character* leader):leader(leader){} 
+            Team(Character* leader):leader(leader){}
+             virtual ~Team() {}
+            Team(const Team& other):leader(other.leader){}            
+
+            Team& operator=(const Team& other) {
+                if(this == &other){
+                    return *this; 
+                } 
+                return *this;
+            }
+            Team(Team&& other) noexcept : leader(other.leader) {}
+
+            Team& operator=(Team&& other) noexcept {
+                if(this == &other){
+                    return *this; 
+                }
+                return *this;
+            }
+
+
         
             void add(Character*); 
             virtual void attack(Team*);
             int stillAlive(); 
-            virtual void print(); 
+            virtual void print();
+            Character *getLeader(){return this->leader;}; 
+
+
     };
 
 }

@@ -9,11 +9,11 @@ namespace ariel{
     {
     private:
 
-    protected:
         const string name; 
         int hit_points;
         Point location; 
-        Character(const string name, const Point location, const int hit_points ):name(name), location(location),hit_points(hit_points){}
+    protected:
+        Character(const string &name, const Point location, const int hit_points ):name(name), location(location),hit_points(hit_points){}
         
     public:
         

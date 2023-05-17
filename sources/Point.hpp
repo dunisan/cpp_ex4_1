@@ -10,10 +10,10 @@ namespace ariel{
             double _y; 
 
         public:
-            Point(double x, double y): _x(x), _y(y){}
+            Point(const double x_axis, double y_axis): _x(x_axis), _y(y_axis){}
             double distance(const Point&); 
             std::string print(); 
-            Point moveTowards(const Point& ,const Point& ,const double); 
+            Point moveTowards(const Point& ,const Point& , double); 
 
             double get_x(); 
             double get_y(); 

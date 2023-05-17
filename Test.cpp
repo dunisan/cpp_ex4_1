@@ -167,32 +167,137 @@ TEST_SUITE("CHARACTER - cowboy") {
     }
 }
 
-TEST_SUITE("Ninja class methods") {
+TEST_SUITE("CHARACTER - ninja") {
     TEST_CASE("constructor") {
         YoungNinja a("Almoni", Point(2,2)); //100,14
         OldNinja b("Ploni", Point(1,1));// 120,12
         TrainedNinja c("Shalmoni", Point(3,3)); // 150, 8
 
+        CHECK_EQ(a.getName(), "Almoni");
+        CHECK_EQ(b.getName(), "Ploni");
+        CHECK_EQ(c.getName(), "Shalmoni");
+
         CHECK_EQ(a.getSpeed(), 14);
         CHECK_EQ(b.getSpeed(), 12);
         CHECK_EQ(c.getSpeed(), 8);
-
         CHECK_EQ(a.getHitPoints(), 100);
         CHECK_EQ(a.getHitPoints(), 120);
         CHECK_EQ(a.getHitPoints(), 150);
-
-        
-
-
-
-
-
     }
+
     TEST_CASE("move") {
-    }
-    TEST_CASE("slash") {
-    }
-    TEST_CASE("constructor") {
+        YoungNinja a("Almoni", Point(2,2)); //100,14
+        OldNinja b("Ploni", Point(2,20));// 120,12
+        TrainedNinja c("Shalmoni", Point(2,2)); // 150, 8
+
+        YoungNinja* d = &a; 
+        OldNinja* e = &b; 
+        TrainedNinja* g = &c; 
+    
+        a.move(e); // 2,16 
+        b.move(g); // 2,8
+        c.move(e); // 8,8
+        
+        CHECK_EQ(a.getLocation().get_x(), 2); 
+        CHECK_EQ(a.getLocation().get_y(), 16); 
+        CHECK_EQ(b.getLocation().get_x(), 8); 
+        CHECK_EQ(b.getLocation().get_y(), 8); 
+        CHECK_EQ(c.getLocation().get_x(), 8); 
+        CHECK_EQ(c.getLocation().get_y(), 8); 
+
     }
 
+    TEST_CASE("slash") {
+        YoungNinja a("Almoni", Point(3,3)); //100,14
+        OldNinja b("Ploni", Point(1,1));// 120,12
+        Cowboy c("Hevroni", Point(1,1.1)); 
+        Cowboy* d = &c;
+
+        a.slash(&c);
+        CHECK_EQ(c.getHitPoints(), 110); 
+        b.slash(&c); 
+        CHECK_EQ(c.getHitPoints(), 70); 
+
+
+    }
 }
+TEST_SUITE("Team") {
+    TEST_CASE("constructor") {
+        YoungNinja a("Almoni", Point(3,3)); //100,14
+        OldNinja b("Ploni", Point(1,1));// 120,12
+        TrainedNinja c("Shalmoni", Point(2,3)); 
+        Cowboy d("Hevroni", Point(1,1.1)); 
+        
+        Team w(&a); 
+        
+        CHECK_EQ(w.getLeader()->getName(), "Almoni"); 
+        CHECK_EQ(w.stillAlive(), 1); 
+    }
+
+    TEST_CASE("add") {
+        YoungNinja a("Almoni", Point(3,3)); //100,14
+        OldNinja b("Ploni", Point(1,1));// 120,12
+        TrainedNinja c("Shalmoni", Point(2,3)); 
+        Cowboy d("Hevroni", Point(1,1.1)); 
+
+        Team w(&a); 
+        w.add(&b);
+        w.add(&c); 
+
+        CHECK_EQ(w.stillAlive(), 3); 
+    }
+
+
+    TEST_CASE("attack") {
+        YoungNinja a("Almoni", Point(0,0)); //100,14
+        OldNinja b("Ploni", Point(1,1));// 120,12
+        TrainedNinja c("Shalmoni", Point(2,2)); 
+        Cowboy d("Hevroni", Point(3,3)); 
+
+        Team w(&a); 
+        w.add(&b);
+        w.add(&c);
+ 
+
+        Team q(&d); 
+
+        w.attack(&q);        
+     
+        CHECK_EQ(q.stillAlive(),0); 
+    }
+
+    
+    TEST_CASE("still alive") {
+        YoungNinja a("Almoni", Point(0,0)); //100,14
+        OldNinja b("Ploni", Point(1,1));// 120,12
+        TrainedNinja c("Shalmoni", Point(2,2)); 
+        Cowboy d("Hevroni", Point(3,3)); 
+
+        Team w(&a);
+        CHECK_EQ(w.stillAlive(),1); 
+        w.add(&b);
+        CHECK_EQ(w.stillAlive(),0); 
+        w.add(&c);
+        CHECK_EQ(w.stillAlive(),0); 
+
+
+        Team q(&d); 
+
+        w.attack(&q);        
+     
+        CHECK_EQ(q.stillAlive(),0); 
+    }
+    TEST_CASE("print") {
+        YoungNinja a("Almoni", Point(3,3));
+        OldNinja b("Ploni", Point(1,1)); 
+        TrainedNinja c("Shalmoni", Point(2,3)); 
+        Cowboy d("Hevroni", Point(1,1.1)); 
+        Team w(&a); 
+        w.add(&b);
+        w.add(&c); 
+        w.add(&d); 
+
+        CHECK_NOTHROW(w.print()); 
+    }
+}
+

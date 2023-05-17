@@ -2,7 +2,7 @@
 
 namespace ariel{
  
-    void SmartTeam::attack(Team*){}
+    void SmartTeam::attack(Team* enemy){}
     void SmartTeam::print(){} 
 
 }

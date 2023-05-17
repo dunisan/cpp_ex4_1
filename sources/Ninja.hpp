@@ -9,11 +9,10 @@ namespace ariel{
     class Ninja: public Character{
         private:
 
-        protected:
             const int speed; 
 
         public: 
-            Ninja(const string& name, const Point location, int hit_points, int speed):Character(name,location,hit_points), speed(speed){}
+            Ninja(const string& name, const Point location, const int hit_points, int speed):Character(name,location,hit_points), speed(speed){}
             void move(const Character*);
             void slash(Character*); 
 
